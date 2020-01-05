@@ -8,13 +8,14 @@ IMAGE_NAME="osm-tileserver-db"
 
 function start() {
   docker run \
-  		--name $IMAGE_NAME \
-  		--rm=false \
-  		--detach \
-  		--publish 5433:5432 \
-      -v openstreetmap-db:/var/lib/postgresql/11/main \
-  		$IMAGE_NAME \
-  		run
+        --name $IMAGE_NAME \
+        --rm=false \
+        --detach \
+        --hostname osmpsql \
+        --shm-size=6G \
+        -v openstreetmap-db:/var/lib/postgresql/11/main \
+        $IMAGE_NAME \
+        run
 }
 
 function stop() {
@@ -28,16 +29,16 @@ function build() {
 
 case "$1" in
   start)
-		start
-	;;
+    start
+    ;;
   stop)
-		stop
-	;;
+    stop
+    ;;
   restart)
     build
     stop
-		start
-	;;
+    start
+    ;;
   build)
     build
 	;;
