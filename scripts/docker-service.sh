@@ -14,7 +14,7 @@ function start() {
         --hostname osmpsql \
         --shm-size=6G \
         -v openstreetmap-db:/var/lib/postgresql/11/main \
-        $IMAGE_NAME \
+        --network proxy $IMAGE_NAME \
         run
 }
 
